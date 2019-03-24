@@ -7,7 +7,7 @@ import org.junit.Test;
 public class LoginTest {
 
     @Test
-    void loginClassCreationTest() {
+    public void loginClassCreationTest() {
         Login login = new Login();
         Assert.assertNotNull(login);
     }
