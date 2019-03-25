@@ -11,12 +11,13 @@ public class DatabaseTest {
 
     @Test
     public void databaseConnectionTest() throws SQLException {
-        String username = "postgres";
-        String password = "111";
-        String url = "jdbc:postgresql://localhost:5432/network";
-
-        Connection connection;
-        connection = DriverManager.getConnection(url, username, password);
-        Assert.assertNotNull(connection);
+        Database database = Database.getInstance();
+        Assert.assertNotNull(database);
     }
+
+    @Test
+    public void databaseInsertTest() {
+
+    }
+
 }
