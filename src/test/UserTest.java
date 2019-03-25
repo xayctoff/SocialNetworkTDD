@@ -12,4 +12,14 @@ public class UserTest {
         Assert.assertNotNull(user);
     }
 
+    @Test
+    public void signUpTest() {
+        String login = "xayctoff";
+        String password = "111";
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        
+    }
+
 }
