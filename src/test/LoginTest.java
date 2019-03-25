@@ -24,7 +24,8 @@ public class LoginTest {
         user.setLogin(login);
         user.setPassword(password);
 
-        int result = Database.getInstance().insert("INSERT INTO users values (1, @login, @password");
+        int result = Database.getInstance().insert("INSERT INTO users values (1, '" + login + "', '" +
+                password + "')");
         Assert.assertEquals(1, result);
     }
 
