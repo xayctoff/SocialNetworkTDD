@@ -17,8 +17,8 @@ public class DatabaseTest {
     @Test
     public void insertTest() throws SQLException {
         Database database = Database.getInstance();
-        boolean result = database.insert("INSERT INTO status values (2, 'В друзьях')");
-        Assert.assertTrue(result);
+        int result = database.insert("INSERT INTO status values (2, 'В друзьях')");
+        Assert.assertEquals(1, result);
     }
 
 
