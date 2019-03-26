@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Database {
 
@@ -41,8 +38,9 @@ public class Database {
 
     public boolean checkOnExistUser(String login) throws SQLException {
         statement = instance.connection.createStatement();
-        String query = "SELECT * FROM users WHERE login = '" + login + "'";
-        return statement.executeUpdate(query) > 0;
+        String query = "SELECT COUNT(login) FROM users WHERE login = '" + login + "'";
+        ResultSet result = statement.executeQuery(query);
+        return result.getInt("count") > 0;
     }
 
     public boolean checkOnValidAuthorization(String login, String password) throws SQLException {
@@ -53,7 +51,12 @@ public class Database {
             return false;
         }
 
-        else return statement.executeUpdate(query) != 0;
+        else if (!statement.executeQuery(query).next()) {
+            return false;
+        }
 
+        else {
+            return true;
+        }
     }
 }
