@@ -25,7 +25,14 @@ public class DatabaseTest {
     @Test
     public void checkOnExistUserTest() throws SQLException {
         Database database = Database.getInstance();
-        boolean result = database.checkOnExistUser();
+        boolean result = database.checkOnExistUser("xayctoff");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void checkOnValidAuthorizationTest() throws SQLException {
+        Database database = Database.getInstance();
+        boolean result = database.checkOnValidAuthorization("xayctoff", "121313");
         Assert.assertTrue(result);
     }
 
