@@ -40,7 +40,7 @@ public class Database {
         statement = instance.connection.createStatement();
         String query = "SELECT COUNT(login) FROM users WHERE login = '" + login + "'";
         ResultSet result = statement.executeQuery(query);
-        return result.getInt("count") > 0;
+        return result != null;
     }
 
     public boolean checkOnValidAuthorization(String login, String password) throws SQLException {
@@ -51,12 +51,6 @@ public class Database {
             return false;
         }
 
-        else if (!statement.executeQuery(query).next()) {
-            return false;
-        }
-
-        else {
-            return true;
-        }
+        else return statement.executeQuery(query) != null;
     }
 }
