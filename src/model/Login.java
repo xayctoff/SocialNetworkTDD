@@ -14,11 +14,16 @@ public class Login {
         }
 
         else {
-            database.insert("INSERT INTO users values('" + login + "', '" + password + "')");
+            database.insert("INSERT INTO users values(DEFAULT, '" + login + "', '" + password + "')");
             User user = new User();
             user.setLogin(login);
             user.setPassword(password);
             return true;
         }
+    }
+
+    public boolean signIn(String login, String password) throws SQLException {
+        Database database = Database.getInstance();
+        return database.checkOnValidAuthorization(login, password);
     }
 }
