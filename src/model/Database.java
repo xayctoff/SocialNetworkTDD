@@ -47,12 +47,17 @@ public class Database {
 
     public boolean checkOnValidAuthorization(String login, String password) throws SQLException {
         statement = instance.connection.createStatement();
-        String query = "SELECT * FROM users WHERE login = '" + login + "' AND password = '" + password + "'";
+        String query = "SELECT COUNT(login) FROM users WHERE login = '" + login + "' AND password = '" + password + "'";
 
         if (!checkOnExistUser(login)) {
             return false;
         }
 
-        else return statement.executeQuery(query) != null;
+        else {
+            ResultSet result = statement.executeQuery(query);
+            result.next();
+
+            return result.getInt("count") != 0;
+        }
     }
 }
