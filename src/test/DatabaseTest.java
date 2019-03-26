@@ -17,7 +17,7 @@ public class DatabaseTest {
     @Test
     public void insertTest() throws SQLException {
         Database database = Database.getInstance();
-        String query = "INSERT INTO status values (2, 'В друзьях')";
+        String query = "INSERT INTO status values (DEFAULT, 'Нет связи')";
         int result = database.insert(query);
         Assert.assertEquals(1, result);
     }
@@ -32,7 +32,7 @@ public class DatabaseTest {
     @Test
     public void checkOnValidAuthorizationTest() throws SQLException {
         Database database = Database.getInstance();
-        boolean result = database.checkOnValidAuthorization("xayctoff", "121313");
+        boolean result = database.checkOnValidAuthorization("xayctoff", "111");
         Assert.assertTrue(result);
     }
 
