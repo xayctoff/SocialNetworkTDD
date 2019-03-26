@@ -16,8 +16,8 @@ public class LoginTest {
 
     @Test
     public void signUpSuccessTest() throws SQLException {
-        String login = "xayctoff";
-        String password = "111";
+        String login = "jenek41";
+        String password = "porlkks2334";
         Login newUser = new Login();
         boolean result = newUser.signUp(login, password);
         Assert.assertTrue(result);
@@ -33,12 +33,21 @@ public class LoginTest {
     }
 
     @Test
-    public void signInTest() {
+    public void signInSuccessTest() throws SQLException {
         String login = "xayctoff";
         String password = "111";
         Login authorization = new Login();
-        int result = authorization.signIn(login, password);
-        Assert.assertEquals(1, result);
+        boolean result = authorization.signIn(login, password);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void signInFailureTest() throws SQLException {
+        String login = "pedro";
+        String password = "111";
+        Login authorization = new Login();
+        boolean result = authorization.signIn(login, password);
+        Assert.assertFalse(result);
     }
 
 }
