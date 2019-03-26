@@ -19,8 +19,8 @@ public class LoginTest {
         String login = "xayctoff";
         String password = "111";
         Login newUser = new Login();
-        int result = newUser.signUp(login, password);
-        Assert.assertEquals(1, result);
+        boolean result = newUser.signUp(login, password);
+        Assert.assertTrue(result);
     }
 
     @Test
@@ -28,8 +28,8 @@ public class LoginTest {
         String login = "xayctoff";
         String password = "111";
         Login newUser = new Login();
-        int result = newUser.signUp(login, password);
-        Assert.assertEquals(0, result);
+        boolean result = newUser.signUp(login, password);
+        Assert.assertFalse(result);
     }
 
     @Test
