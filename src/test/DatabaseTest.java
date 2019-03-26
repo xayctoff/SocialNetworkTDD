@@ -17,9 +17,16 @@ public class DatabaseTest {
     @Test
     public void insertTest() throws SQLException {
         Database database = Database.getInstance();
-        int result = database.insert("INSERT INTO status values (2, 'В друзьях')");
+        String query = "INSERT INTO status values (2, 'В друзьях')";
+        int result = database.insert(query);
         Assert.assertEquals(1, result);
     }
 
+    @Test
+    public void checkOnExistUserTest() throws SQLException {
+        Database database = Database.getInstance();
+        boolean result = database.checkOnExistUser();
+        Assert.assertTrue(result);
+    }
 
 }

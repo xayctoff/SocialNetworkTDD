@@ -1,5 +1,6 @@
 package test;
 
+import javafx.scene.chart.PieChart;
 import model.Database;
 import model.Login;
 import model.User;
@@ -26,6 +27,15 @@ public class LoginTest {
 
         int result = Database.getInstance().insert("INSERT INTO users values (1, '" + login + "', '" +
                 password + "')");
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
+    public void signInTest() throws SQLException {
+        String login = "xayctoff";
+        String password = "111";
+        int result = Database.getInstance().select("SELECT * FROM users WHERE login = '" + login + "' AND "
+                + "password = '" + password + "'");
         Assert.assertEquals(1, result);
     }
 
