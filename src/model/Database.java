@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
 
@@ -59,5 +60,26 @@ public class Database {
 
             return result.getInt("count") != 0;
         }
+    }
+
+    public ArrayList <String> searchPeople(String login) throws SQLException {
+        statement = instance.connection.createStatement();
+        String query = "SELECT login FROM users WHERE login = '" + login + "'";
+        ResultSet result = statement.executeQuery(query);
+
+        ArrayList <String> people = new ArrayList<>();
+
+        while (result.next()) {
+            people.add(result.getString("login"));
+        }
+
+        if (people.isEmpty()) {
+            return null;
+        }
+        
+        else {
+            return people;
+        }
+
     }
 }
