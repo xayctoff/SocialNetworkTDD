@@ -19,4 +19,11 @@ public class UserTest {
         Assert.assertNotNull(user.getLogin());
     }
 
+    @Test
+    public void getPasswordTest() {
+        User user = new User();
+        user.setPassword("121313");
+        Assert.assertNotNull(user.getPassword());
+    }
+
 }
