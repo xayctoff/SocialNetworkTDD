@@ -15,6 +15,7 @@ public class UserTest {
     @Test
     public void getLoginTest() {
         User user = new User();
+        user.setLogin("xayctoff");
         Assert.assertNotNull(user.getLogin());
     }
 
