@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseTest {
 
@@ -39,8 +40,8 @@ public class DatabaseTest {
     @Test
     public void searchPeopleTest() throws SQLException{
         Database database = Database.getInstance();
-        boolean result = database.searchPeople("xayctoff");
-        Assert.assertTrue(result);
+        ArrayList <String> result = database.searchPeople("xayctoff");
+        Assert.assertNotNull(result);
     }
 
 }
