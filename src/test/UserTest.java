@@ -12,4 +12,10 @@ public class UserTest {
         Assert.assertNotNull(user);
     }
 
+    @Test
+    public void getLoginTest() {
+        User user = new User();
+        Assert.assertNotNull(user.getLogin());
+    }
+
 }
