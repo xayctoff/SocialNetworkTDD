@@ -1,6 +1,7 @@
 package test;
 
 import model.Database;
+import model.User;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -42,6 +43,13 @@ public class DatabaseTest {
         Database database = Database.getInstance();
         ArrayList <String> result = database.searchPeople("xayctoff");
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void checkOnFriendshipTest() throws SQLException {
+        Database database = Database.getInstance();
+        boolean result = database.checkOnFriendship("xayctoff", "andre");
+        Assert.assertTrue(result);
     }
 
 }
