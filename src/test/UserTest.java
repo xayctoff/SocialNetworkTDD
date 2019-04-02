@@ -4,6 +4,8 @@ import model.User;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.SQLException;
+
 public class UserTest {
 
     @Test
@@ -27,9 +29,9 @@ public class UserTest {
     }
 
     @Test
-    public void addFriendTestSuccess() {
+    public void addFriendTestSuccess() throws SQLException {
         User user = new User();
-        boolean result = user.addFriend();
+        boolean result = user.addFriend("xayctoff", "andre");
         Assert.assertTrue(result);
     }
 
