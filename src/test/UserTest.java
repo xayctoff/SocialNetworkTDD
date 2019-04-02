@@ -26,4 +26,11 @@ public class UserTest {
         Assert.assertNotNull(user.getPassword());
     }
 
+    @Test
+    public void addFriendTestSuccess() {
+        User user = new User();
+        boolean result = user.addFriend();
+        Assert.assertTrue(result);
+    }
+
 }
