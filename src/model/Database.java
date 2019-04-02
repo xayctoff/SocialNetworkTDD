@@ -91,8 +91,6 @@ public class Database {
                 "AND second =\n(SELECT user_id FROM users WHERE login = '" + first + "') AND status = 2\n";
         ResultSet result = statement.executeQuery(query);
 
-        result.next();
-
-        return !result.wasNull();
+        return result.next();
     }
 }
