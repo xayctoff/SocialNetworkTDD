@@ -76,10 +76,23 @@ public class Database {
         if (people.isEmpty()) {
             return null;
         }
-        
+
         else {
             return people;
         }
 
+    }
+
+    public boolean checkOnFriendship(String first, String second) throws SQLException {
+        statement = instance.connection.createStatement();
+        String query = "SELECT first, second, status FROM friends WHERE first =\n" +
+                "(SELECT user_id FROM users WHERE login = '" + first + "') AND second = (SELECT user_id FROM users WHERE " +
+                "login = '" + second + "')OR\nfirst = (SELECT user_id FROM users WHERE login = '" + second + "') " +
+                "AND second =\n(SELECT user_id FROM users WHERE login = '" + first + "') AND status = 2\n";
+        ResultSet result = statement.executeQuery(query);
+
+        result.next();
+
+        return !result.wasNull();
     }
 }
