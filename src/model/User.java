@@ -22,4 +22,9 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public boolean addFriend() {
+        //TODO: реализовать метод
+        return true;
+    }
 }
