@@ -46,10 +46,12 @@ public class DatabaseTest {
     }
 
     @Test
-    public void checkOnFriendshipTest() throws SQLException {
+    public void checkOnFriendshipTestFailure() throws SQLException {
         Database database = Database.getInstance();
         boolean result = database.checkOnFriendship("xayctoff", "andre");
-        Assert.assertTrue(result);
+        Assert.assertFalse(result);
     }
+
+
 
 }
