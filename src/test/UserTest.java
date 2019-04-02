@@ -35,4 +35,11 @@ public class UserTest {
         Assert.assertTrue(result);
     }
 
+    @Test
+    public void addFriendTestFailrue() throws SQLException {
+        User user = new User();
+        boolean result = user.addFriend("xayctoff", "egor228");
+        Assert.assertFalse(result);
+    }
+
 }
