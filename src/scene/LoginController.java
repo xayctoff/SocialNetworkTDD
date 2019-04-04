@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 import model.Login;
 import model.User;
 
-import java.sql.SQLException;
-
 public class LoginController {
 
     private User user;
@@ -39,11 +37,7 @@ public class LoginController {
 
         if (login.signIn(name, password)) {
             closeLoginWindow();
-
-            user = new User();
-            user.setLogin(name);
-            user.setPassword(password);
-
+            saveUser(name, password);
             openMainWindow(name);
         }
 
@@ -58,11 +52,7 @@ public class LoginController {
 
         if (login.signUp(name, password)) {
             closeLoginWindow();
-
-            user = new User();
-            user.setLogin(name);
-            user.setPassword(password);
-
+            saveUser(name, password);
             openMainWindow(name);
         }
 
@@ -75,6 +65,12 @@ public class LoginController {
     private void closeLoginWindow() {
         Stage stage = (Stage) signInButton.getScene().getWindow();
         stage.close();
+    }
+
+    private void saveUser(String login, String password) {
+        user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
     }
 
     private void openMainWindow(String title) throws Exception {
