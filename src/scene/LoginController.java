@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import model.Login;
 import model.User;
 
+import java.sql.SQLException;
+
 public class LoginController {
 
     private User user;
@@ -49,6 +51,27 @@ public class LoginController {
         else {
             showMessage("Неправильный логин или пароль");
         }
+    }
+
+    public void signUp() throws Exception {
+        String name = loginField.getText();
+        String password = passwordField.getText();
+
+        if (login.signUp(name, password)) {
+            Stage stage = (Stage) signInButton.getScene().getWindow();
+            stage.close();
+
+            user = new User();
+            user.setLogin(name);
+            user.setPassword(password);
+
+            openMainWindow(name);
+        }
+
+        else {
+            showMessage("Пользователь с таким именем уже существует");
+        }
+
     }
 
     private void openMainWindow(String title) throws Exception {
