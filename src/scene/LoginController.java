@@ -50,4 +50,12 @@ public class LoginController {
         }
     }
 
+    private void openMainWindow(String title) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
+    }
+
 }
