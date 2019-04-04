@@ -43,7 +43,7 @@ public class UserTest {
     }
 
     @Test
-    public void confirmFriendshipTestSuccess() {
+    public void confirmFriendshipTestSuccess() throws SQLException {
         User user = new User();
         boolean result = user.confirmFriendship("xayctoff", "andre", true);
         Assert.assertTrue(result);
