@@ -19,12 +19,12 @@
             <Font name="Tahoma" size="14.0" />
          </font>
       </Label>
-      <TextField id="loginFiled" layoutX="105.0" layoutY="34.0">
+      <TextField id="loginFiled" fx:id="loginField" layoutX="105.0" layoutY="34.0">
          <font>
             <Font name="Tahoma" size="14.0" />
          </font>
       </TextField>
-      <PasswordField id="passwordField" layoutX="105.0" layoutY="86.0">
+      <PasswordField id="passwordField" fx:id="passwordField" layoutX="105.0" layoutY="86.0">
          <font>
             <Font name="Tahoma" size="14.0" />
          </font>
