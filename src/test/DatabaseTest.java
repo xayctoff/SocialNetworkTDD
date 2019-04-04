@@ -55,7 +55,7 @@ public class DatabaseTest {
     public void updateTest() throws SQLException {
         Database database = Database.getInstance();
         String query = "UPDATE friends SET status = 2 WHERE first = (SELECT user_id FROM users WHERE login = " +
-                "'xayctoff' AND second = (SELECT user_id FROM users WHERE login = 'andre') OR first = (SELECT user_id" +
+                "'xayctoff') AND second = (SELECT user_id FROM users WHERE login = 'andre') OR first = (SELECT user_id" +
                 " FROM users WHERE login = 'andre') AND second = (SELECT user_id FROM users WHERE login = 'xayctoff')";
         int result = database.update(query);
         Assert.assertEquals(1, result);
