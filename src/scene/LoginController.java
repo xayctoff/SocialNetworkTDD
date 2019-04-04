@@ -38,8 +38,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.signIn(name, password)) {
-            Stage stage = (Stage) signInButton.getScene().getWindow();
-            stage.close();
+            closeLoginWindow();
 
             user = new User();
             user.setLogin(name);
@@ -58,8 +57,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.signUp(name, password)) {
-            Stage stage = (Stage) signInButton.getScene().getWindow();
-            stage.close();
+            closeLoginWindow();
 
             user = new User();
             user.setLogin(name);
@@ -72,6 +70,11 @@ public class LoginController {
             showMessage("Пользователь с таким именем уже существует");
         }
 
+    }
+
+    private void closeLoginWindow() {
+        Stage stage = (Stage) signInButton.getScene().getWindow();
+        stage.close();
     }
 
     private void openMainWindow(String title) throws Exception {
