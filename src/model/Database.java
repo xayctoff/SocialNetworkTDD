@@ -98,4 +98,15 @@ public class Database {
         statement = instance.connection.createStatement();
         return statement.executeUpdate(query);
     }
+
+    public int getUserId(String query) throws SQLException {
+        statement = instance.connection.createStatement();
+        ResultSet result = statement.executeQuery(query);
+        int id = 0;
+        while (result.next()) {
+            id = result.getInt(0);
+        }
+
+        return id;
+    }
 }
