@@ -57,7 +57,7 @@ public class UserTest {
     }
 
     @Test
-    public void writeMessageTest() {
+    public void writeMessageTest() throws SQLException {
         User user = new User();
         int result = user.writeMessage("xayctoff", "andre", "Привет!");
         Assert.assertEquals(1, result);

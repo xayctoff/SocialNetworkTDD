@@ -1,6 +1,11 @@
 package model;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class User {
 
@@ -54,4 +59,15 @@ public class User {
         }
     }
 
+    public int writeMessage(String server, String receiver, String message) throws SQLException {
+        Database database = Database.getInstance();
+        int serverId = database.getUserId(server);
+        int receiverId = database.getUserId(receiver);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date date = new Date();
+
+        return database.insert("INSERT INTO messages VALUES (" + serverId + ", " + receiverId + ", '" + message +
+                "', " + "'" + dateFormat.format(date) + "')");
+    }
 }
