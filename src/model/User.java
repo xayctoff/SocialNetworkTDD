@@ -70,4 +70,5 @@ public class User {
         return database.insert("INSERT INTO messages VALUES (" + serverId + ", " + receiverId + ", '" + message +
                 "', " + "'" + dateFormat.format(date) + "')");
     }
+    
 }
