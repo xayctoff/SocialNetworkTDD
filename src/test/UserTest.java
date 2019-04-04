@@ -41,4 +41,11 @@ public class UserTest {
         boolean result = user.addFriend("xayctoff", "egor228");
         Assert.assertFalse(result);
     }
+
+    @Test
+    public void confirmFriendshipTestSuccess() {
+        User user = new User();
+        boolean result = user.confirmFriendship("xayctoff", "andre", true);
+        Assert.assertTrue(result);
+    }
 }
