@@ -37,4 +37,18 @@ public class User {
         }
 
     }
+
+    public boolean confirmFriendship(String first, String second, boolean decision) throws SQLException {
+        if (decision) {
+            Database.getInstance().update("UPDATE friends SET status = 2 WHERE first = (SELECT user_id FROM " +
+                    "users WHERE login = '" + first + "') AND second = (SELECT user_id FROM users WHERE login = '" +
+                    second + "')");
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
 }
