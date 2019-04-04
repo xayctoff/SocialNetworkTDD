@@ -93,4 +93,9 @@ public class Database {
 
         return result.next();
     }
+
+    public int update(String query) throws SQLException {
+        statement = instance.connection.createStatement();
+        return statement.executeUpdate(query);
+    }
 }
