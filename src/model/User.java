@@ -67,8 +67,8 @@ public class User {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date date = new Date();
 
-        return database.insert("INSERT INTO messages VALUES (" + serverId + ", " + receiverId + ", '" + message +
+        return database.insert("INSERT INTO messages VALUES (DEFAULT, " + serverId + ", " + receiverId + ", '" + message +
                 "', " + "'" + dateFormat.format(date) + "')");
     }
-    
+
 }
