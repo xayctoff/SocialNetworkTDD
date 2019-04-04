@@ -64,8 +64,7 @@ public class DatabaseTest {
     @Test
     public void getUserIdTest() throws SQLException {
         Database database = Database.getInstance();
-        String query = "SELECT user_id FROM users WHERE login = 'jenek41'";
-        int result = database.getUserId(query);
+        int result = database.getUserId("jenek41");
         Assert.assertEquals(9, result);
     }
 
