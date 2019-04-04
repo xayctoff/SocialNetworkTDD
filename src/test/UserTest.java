@@ -48,4 +48,11 @@ public class UserTest {
         boolean result = user.confirmFriendship("xayctoff", "andre", true);
         Assert.assertTrue(result);
     }
+
+    @Test
+    public void confirmFriendshipTestFailure() throws SQLException {
+        User user = new User();
+        boolean result = user.confirmFriendship("xayctoff", "jenek41", false);
+        Assert.assertFalse(result);
+    }
 }
