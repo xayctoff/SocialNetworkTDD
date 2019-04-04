@@ -36,7 +36,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.signIn(name, password)) {
-            closeLoginWindow();
+            closeLoginWindow(signInButton);
             saveUser(name, password);
             openMainWindow(name);
         }
@@ -51,7 +51,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.signUp(name, password)) {
-            closeLoginWindow();
+            closeLoginWindow(signUpButton);
             saveUser(name, password);
             openMainWindow(name);
         }
@@ -62,8 +62,8 @@ public class LoginController {
 
     }
 
-    private void closeLoginWindow() {
-        Stage stage = (Stage) signInButton.getScene().getWindow();
+    private void closeLoginWindow(Button button) {
+        Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
 
