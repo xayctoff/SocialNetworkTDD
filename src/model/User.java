@@ -47,6 +47,9 @@ public class User {
         }
 
         else {
+            Database.getInstance().update("UPDATE friends SET status = 0 WHERE first = (SELECT user_id FROM " +
+                    "users WHERE login = '" + first + "') AND second = (SELECT user_id FROM users WHERE login = '" +
+                    second + "')");
             return false;
         }
     }
