@@ -110,4 +110,12 @@ public class DatabaseTest {
         Assert.assertNull(result);
     }
 
+    @Test
+    public void getMessagesTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getMessages("xayctoff", "andre");
+        Assert.assertNotNull(result);
+    }
+
+    
 }
