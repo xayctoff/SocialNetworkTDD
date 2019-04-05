@@ -103,4 +103,11 @@ public class DatabaseTest {
         Assert.assertEquals(1, result.size());
     }
 
+    @Test
+    public void getSubscribersListNullTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getSubscribersList("andre");
+        Assert.assertNull(result);
+    }
+
 }
