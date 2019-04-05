@@ -127,7 +127,7 @@ public class DatabaseTest {
     @Test
     public void getMessagesNullTest() throws SQLException {
         Database database = Database.getInstance();
-        ArrayList <String> result = database.getMessages("xayctoff", "andre");
+        ArrayList <String> result = database.getMessages("xayctoff", "egor228");
         Assert.assertNull(result);
     }
 }
