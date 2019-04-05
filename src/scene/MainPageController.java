@@ -66,6 +66,14 @@ public class MainPageController implements Initializable {
         database.getSubscribersList(user.getLogin());
     }
 
+    @FXML
+    public void declineRequest() throws Exception {
+        String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
+        user.confirmFriendship(user.getLogin(), subscriber, false);
+        database.getFriendsList(user.getLogin());
+        database.getSubscribersList(user.getLogin());
+    }
+
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
     }
