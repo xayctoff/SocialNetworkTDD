@@ -75,4 +75,11 @@ public class DatabaseTest {
         Assert.assertNotNull(result);
     }
 
+    @Test
+    public void getFriendsListCorrectSizeTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getFriendsList("xayctoff");
+        Assert.assertEquals(2, result.size());
+    }
+
 }
