@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import model.Database;
 import model.User;
 
@@ -105,6 +106,12 @@ public class MainPageController implements Initializable {
     public void sendMessage() throws SQLException {
         user.writeMessage(user.getLogin(), receiverLabel.getText(), messageField.getText());
         fillMessagesList();
+    }
+
+    @FXML
+    public void signOut() {
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        stage.close();
     }
 
     private void setLoginLabel() {
