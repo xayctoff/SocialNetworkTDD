@@ -1,5 +1,9 @@
 package scene;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +13,7 @@ import model.User;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
@@ -36,16 +41,16 @@ public class MainPageController implements Initializable {
     private Button sendButton;
 
     @FXML
-    private ListView friendsList;
+    private ListView <String> friendsList;
 
     @FXML
-    private ListView subscribersList;
+    private ListView <String> subscribersList;
 
     @FXML
-    private ListView searchResult;
+    private ListView <String> searchResult;
 
     @FXML
-    private ListView dialog;
+    private ListView <String> dialog;
 
     @FXML
     private TextField searchField;
@@ -62,17 +67,20 @@ public class MainPageController implements Initializable {
     public void acceptRequest() throws Exception {
         String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
         user.confirmFriendship(user.getLogin(), subscriber, true);
-        database.getFriendsList(user.getLogin());
-        database.getSubscribersList(user.getLogin());
+        fillFriendsList();
+        fillSubscribersList();
     }
 
     @FXML
     public void declineRequest() throws Exception {
         String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
         user.confirmFriendship(user.getLogin(), subscriber, false);
-        database.getFriendsList(user.getLogin());
-        database.getSubscribersList(user.getLogin());
+        fillFriendsList();
+        fillSubscribersList();
     }
+
+
+
 
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
@@ -84,18 +92,31 @@ public class MainPageController implements Initializable {
         this.user = controller.getUser();
     }
 
+    private void fillFriendsList() throws SQLException {
+        ArrayList <String> friends = database.getFriendsList(user.getLogin());
+        ObservableList <String> observableList = FXCollections.observableArrayList(friends);
+        friendsList.getItems().addAll(observableList);
+    }
+
+    private void fillSubscribersList() throws SQLException {
+        ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
+        ObservableList <String> observableList = FXCollections.observableArrayList(subscribers);
+        friendsList.getItems().addAll(observableList);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getUser();
         setLoginLabel();
 
         try {
-            database.getFriendsList(user.getLogin());
-            database.getSubscribersList(user.getLogin());
+            fillFriendsList();
+            fillSubscribersList();
         }
 
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
