@@ -105,9 +105,32 @@ public class Database {
         ResultSet result = statement.executeQuery(query);
         int id = 0;
         while (result.next()) {
-            id = result.getInt(0);
+            id = result.getInt(1);
         }
 
         return id;
+    }
+
+    public ArrayList <String> getFriendsList(String login) throws SQLException {
+        statement = instance.connection.createStatement();
+        int id = getUserId(login);
+        String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.second\n" +
+                "WHERE first = " + id + " AND status = 2";
+        ResultSet result = statement.executeQuery(query);
+
+        ArrayList <String> friends = new ArrayList<>();
+
+        while (result.next()) {
+            friends.add(result.getString(1));
+        }
+
+        if (friends.isEmpty()) {
+            return null;
+        }
+
+        else {
+            return friends;
+        }
+
     }
 }
