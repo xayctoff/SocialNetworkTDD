@@ -79,6 +79,13 @@ public class MainPageController implements Initializable {
         fillSubscribersList();
     }
 
+    @FXML
+    public void searchPeople() throws SQLException {
+        ArrayList <String> result = database.searchPeople(searchField.getText());
+        ObservableList <String> observableList = FXCollections.observableArrayList(result);
+        friendsList.getItems().addAll(observableList);
+    }
+
 
 
 
