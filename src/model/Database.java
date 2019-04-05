@@ -121,7 +121,23 @@ public class Database {
         String query = "SELECT time, login, message FROM messages INNER JOIN users ON users.user_id = " +
                 "messages.server WHERE (server = " + serverId + " AND receiver = " + receiverId + ") OR (server = " +
                 receiverId + " AND receiver = " + serverId + ")";
-        return executeResult(query);
+
+        ResultSet result = statement.executeQuery(query);
+
+        ArrayList <String> list = new ArrayList<>();
+
+        while (result.next()) {
+            list.add(result.getString(1) + result.getString(2) +
+                    result.getString(3));
+        }
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        else {
+            return list;
+        }
     }
 
     private ArrayList <String> executeResult(String query) throws SQLException {
