@@ -62,6 +62,9 @@ public class MainPageController implements Initializable {
     @FXML
     private Label loginLabel;
 
+    @FXML
+    private Label receiverLabel;
+
     public MainPageController() throws SQLException {}
 
     @FXML
@@ -100,6 +103,14 @@ public class MainPageController implements Initializable {
 
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
+    }
+
+    private void setReceiverLabel() {
+        receiverLabel.setText(chooseUser());
+    }
+
+    private String chooseUser() {
+        return friendsList.getSelectionModel().getSelectedItems().toString();
     }
 
     private void getUser() {
@@ -142,6 +153,7 @@ public class MainPageController implements Initializable {
         try {
             fillFriendsList();
             fillSubscribersList();
+            fillRequestsList();
         }
 
         catch (SQLException e) {
