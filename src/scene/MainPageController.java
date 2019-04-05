@@ -107,11 +107,11 @@ public class MainPageController implements Initializable {
         fillMessagesList();
     }
 
-    private void setLoginLabel() throws SQLException {
+    private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
     }
 
-    private void setReceiverLabel() throws SQLException {
+    public void setReceiverLabel() throws SQLException {
         receiverLabel.setText(chooseUser());
         fillMessagesList();
     }
@@ -135,7 +135,7 @@ public class MainPageController implements Initializable {
     private void fillSubscribersList() throws SQLException {
         ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
         ObservableList <String> observableList = FXCollections.observableArrayList(subscribers);
-        friendsList.getItems().addAll(observableList);
+        subscribersList.getItems().addAll(observableList);
     }
 
     private void fillRequestsList() throws SQLException {
@@ -147,7 +147,7 @@ public class MainPageController implements Initializable {
     private void fillMessagesList() throws SQLException {
         ArrayList <String> messages = database.getMessages(user.getLogin(), receiverLabel.getText());
         ObservableList <String> observableList = FXCollections.observableArrayList(messages);
-        requestsList.getItems().addAll(observableList);
+        dialog.getItems().addAll(observableList);
     }
 
     private void showMessage() {
