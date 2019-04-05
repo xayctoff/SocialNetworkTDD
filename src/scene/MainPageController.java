@@ -1,7 +1,5 @@
 package scene;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,6 +45,9 @@ public class MainPageController implements Initializable {
     private ListView <String> subscribersList;
 
     @FXML
+    private ListView <String> requestsList;
+
+    @FXML
     private ListView <String> searchResult;
 
     @FXML
@@ -86,8 +87,16 @@ public class MainPageController implements Initializable {
         friendsList.getItems().addAll(observableList);
     }
 
+    @FXML
+    public void addFriend() throws SQLException {
+        if (user.addFriend(user.getLogin(), searchResult.getSelectionModel().getSelectedItems().toString())) {
+            fillRequestsList();
+        }
 
-
+        else {
+            showMessage();
+        }
+    }
 
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
@@ -109,6 +118,12 @@ public class MainPageController implements Initializable {
         ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
         ObservableList <String> observableList = FXCollections.observableArrayList(subscribers);
         friendsList.getItems().addAll(observableList);
+    }
+
+    private void fillRequestsList() throws SQLException {
+        ArrayList <String> requests = database.getSubscribersList(user.getLogin());
+        ObservableList <String> observableList = FXCollections.observableArrayList(requests);
+        requestsList.getItems().addAll(observableList);
     }
 
     @Override
