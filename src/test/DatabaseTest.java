@@ -96,4 +96,11 @@ public class DatabaseTest {
         Assert.assertNotNull(result);
     }
 
+    @Test
+    public void getSubscribersListCorrectSizeTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getSubscribersList("xayctoff");
+        Assert.assertEquals(1, result.size());
+    }
+
 }
