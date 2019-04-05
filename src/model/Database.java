@@ -114,8 +114,17 @@ public class Database {
         return executeResult(query);
     }
 
+    public ArrayList <String> getMessages(String server, String receiver) throws SQLException {
+        statement = instance.connection.createStatement();
+        int serverId = getUserId(server);
+        int receiverId = getUserId(receiver);
+        String query = "SELECT time, login, message FROM messages INNER JOIN users ON users.user_id = " +
+                "messages.server WHERE (server = " + serverId + " AND receiver = " + receiverId + ") OR (server = " +
+                receiverId + " AND receiver = " + serverId + ")";
+        return executeResult(query);
+    }
 
-    private ArrayList<String> executeResult(String query) throws SQLException {
+    private ArrayList <String> executeResult(String query) throws SQLException {
         ResultSet result = statement.executeQuery(query);
 
         ArrayList <String> list = new ArrayList<>();
@@ -132,4 +141,5 @@ public class Database {
             return list;
         }
     }
+
 }
