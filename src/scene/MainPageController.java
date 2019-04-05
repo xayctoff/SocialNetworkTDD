@@ -126,6 +126,14 @@ public class MainPageController implements Initializable {
         requestsList.getItems().addAll(observableList);
     }
 
+    private void showMessage() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setHeaderText("Ошибка авторизации");
+        alert.setContentText("Пользователь с таким именем уже в друзьях");
+        alert.showAndWait();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getUser();
