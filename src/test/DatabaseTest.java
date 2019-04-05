@@ -82,4 +82,11 @@ public class DatabaseTest {
         Assert.assertEquals(2, result.size());
     }
 
+    @Test
+    public void getFriendsListNullTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getFriendsList("jenek41");
+        Assert.assertNull(result);
+    }
+
 }
