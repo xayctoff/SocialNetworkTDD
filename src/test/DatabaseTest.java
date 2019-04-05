@@ -124,7 +124,10 @@ public class DatabaseTest {
         Assert.assertEquals(2, result.size());
     }
 
-    
-
-
+    @Test
+    public void getMessagesNullTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getMessages("xayctoff", "andre");
+        Assert.assertNull(result);
+    }
 }
