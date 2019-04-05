@@ -65,21 +65,7 @@ public class Database {
     public ArrayList <String> searchPeople(String login) throws SQLException {
         statement = instance.connection.createStatement();
         String query = "SELECT login FROM users WHERE login = '" + login + "'";
-        ResultSet result = statement.executeQuery(query);
-
-        ArrayList <String> people = new ArrayList<>();
-
-        while (result.next()) {
-            people.add(result.getString("login"));
-        }
-
-        if (people.isEmpty()) {
-            return null;
-        }
-
-        else {
-            return people;
-        }
+        return executeResult(query);
 
     }
 
@@ -116,21 +102,34 @@ public class Database {
         int id = getUserId(login);
         String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.second\n" +
                 "WHERE first = " + id + " AND status = 2";
+        return executeResult(query);
+
+    }
+
+    public ArrayList <String> getSubscribersList(String login) throws SQLException {
+        statement = instance.connection.createStatement();
+        int id = getUserId(login);
+        String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.second\n" +
+                "WHERE first = " + id + " AND status = 1";
+        return executeResult(query);
+    }
+
+
+    private ArrayList<String> executeResult(String query) throws SQLException {
         ResultSet result = statement.executeQuery(query);
 
-        ArrayList <String> friends = new ArrayList<>();
+        ArrayList <String> list = new ArrayList<>();
 
         while (result.next()) {
-            friends.add(result.getString(1));
+            list.add(result.getString(1));
         }
 
-        if (friends.isEmpty()) {
+        if (list.isEmpty()) {
             return null;
         }
 
         else {
-            return friends;
+            return list;
         }
-
     }
 }
