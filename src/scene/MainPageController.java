@@ -4,14 +4,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import model.Database;
 import model.User;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
 
     private User user;
+
+    private Database database = Database.getInstance();
 
     @FXML
     private Button acceptButton;
@@ -52,6 +56,8 @@ public class MainPageController implements Initializable {
     @FXML
     private Label loginLabel;
 
+    public MainPageController() throws SQLException {}
+
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
     }
@@ -66,5 +72,14 @@ public class MainPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getUser();
         setLoginLabel();
+
+        try {
+            database.getFriendsList(user.getLogin());
+            database.getSubscribersList(user.getLogin());
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
