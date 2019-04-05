@@ -58,6 +58,14 @@ public class MainPageController implements Initializable {
 
     public MainPageController() throws SQLException {}
 
+    @FXML
+    public void acceptRequest() throws Exception {
+        String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
+        user.confirmFriendship(user.getLogin(), subscriber, true);
+        database.getFriendsList(user.getLogin());
+        database.getSubscribersList(user.getLogin());
+    }
+
     private void setLoginLabel() {
         loginLabel.setText(user.getLogin());
     }
