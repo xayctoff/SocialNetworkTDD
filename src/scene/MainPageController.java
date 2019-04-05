@@ -101,12 +101,19 @@ public class MainPageController implements Initializable {
         }
     }
 
-    private void setLoginLabel() {
+    @FXML
+    public void sendMessage() throws SQLException {
+        user.writeMessage(user.getLogin(), receiverLabel.getText(), messageField.getText());
+        fillMessagesList();
+    }
+
+    private void setLoginLabel() throws SQLException {
         loginLabel.setText(user.getLogin());
     }
 
-    private void setReceiverLabel() {
+    private void setReceiverLabel() throws SQLException {
         receiverLabel.setText(chooseUser());
+        fillMessagesList();
     }
 
     private String chooseUser() {
@@ -134,6 +141,12 @@ public class MainPageController implements Initializable {
     private void fillRequestsList() throws SQLException {
         ArrayList <String> requests = database.getSubscribersList(user.getLogin());
         ObservableList <String> observableList = FXCollections.observableArrayList(requests);
+        requestsList.getItems().addAll(observableList);
+    }
+
+    private void fillMessagesList() throws SQLException {
+        ArrayList <String> messages = database.getMessages(user.getLogin(), receiverLabel.getText());
+        ObservableList <String> observableList = FXCollections.observableArrayList(messages);
         requestsList.getItems().addAll(observableList);
     }
 
