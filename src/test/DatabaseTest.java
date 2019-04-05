@@ -68,4 +68,11 @@ public class DatabaseTest {
         Assert.assertEquals(9, result);
     }
 
+    @Test
+    public void getFriendsListTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getFriendsList("xayctoff");
+        Assert.assertNotNull(result);
+    }
+
 }
