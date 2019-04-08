@@ -36,9 +36,9 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.signIn(name, password)) {
-            closeLoginWindow(signInButton);
             saveUser(name, password);
             openMainWindow(name);
+            closeLoginWindow(signInButton);
         }
 
         else {
@@ -46,14 +46,15 @@ public class LoginController {
         }
     }
 
+    @FXML
     public void signUp() throws Exception {
         String name = loginField.getText();
         String password = passwordField.getText();
 
         if (login.signUp(name, password)) {
-            closeLoginWindow(signUpButton);
             saveUser(name, password);
             openMainWindow(name);
+            closeLoginWindow(signUpButton);
         }
 
         else {
@@ -73,12 +74,28 @@ public class LoginController {
         user.setPassword(password);
     }
 
-    private void openMainWindow(String title) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(new Scene(root, 800, 600));
-        stage.show();
+    @FXML
+    private void openMainWindow(String title) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainpage.fxml"));
+            Parent root = loader.load();
+            MainPageController controller = loader.getController();
+            controller.setUser(user);
+            controller.setLoginLabel();
+            controller.fillFriendsList();
+            controller.fillSubscribersList();
+            controller.fillRequestsList();
+
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        }
+
+        catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     private void showMessage(String message) {
@@ -89,4 +106,26 @@ public class LoginController {
         alert.showAndWait();
     }
 
+    @FXML
+    public void initialize() {
+        signInButton.setOnAction(event -> {
+            try {
+                signIn();
+            }
+
+            catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+
+        signUpButton.setOnAction(event -> {
+            try {
+                signUp();
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }
