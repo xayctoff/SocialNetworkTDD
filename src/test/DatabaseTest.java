@@ -134,7 +134,14 @@ public class DatabaseTest {
     @Test
     public void getRequestsTest() throws SQLException {
         Database database = Database.getInstance();
-        ArrayList <String> result = database.getRequests("andre");
+        ArrayList <String> result = database.getRequestsList("andre");
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void getRequestsCorrectSizeTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getRequestsList("andre");
+        Assert.assertEquals(1, result.size());
     }
 }
