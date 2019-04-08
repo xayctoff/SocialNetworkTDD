@@ -3,23 +3,27 @@ package scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Database;
 import model.User;
-
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class MainPageController implements Initializable {
+public class MainPageController {
 
     private User user;
 
-    private Database database = Database.getInstance();
+    private Database database;
+    {
+        try {
+            database = Database.getInstance();
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private Button acceptButton;
@@ -40,16 +44,16 @@ public class MainPageController implements Initializable {
     private Button sendButton;
 
     @FXML
-    private ListView <String> friendsList;
+    private ListView <String> friendsList = new ListView<>();
 
     @FXML
-    private ListView <String> subscribersList;
+    private ListView <String> subscribersList = new ListView<>();
 
     @FXML
-    private ListView <String> requestsList;
+    private ListView <String> requestsList = new ListView<>();
 
     @FXML
-    private ListView <String> searchResult;
+    private ListView <String> searchResult = new ListView<>();
 
     @FXML
     private ListView <String> dialog;
@@ -65,8 +69,6 @@ public class MainPageController implements Initializable {
 
     @FXML
     private Label receiverLabel;
-
-    public MainPageController() throws SQLException {}
 
     @FXML
     public void acceptRequest() throws Exception {
@@ -86,9 +88,9 @@ public class MainPageController implements Initializable {
 
     @FXML
     public void searchPeople() throws SQLException {
-        ArrayList <String> result = database.searchPeople(searchField.getText());
+        ArrayList<String> result = new ArrayList<>(database.searchPeople(searchField.getText()));
         ObservableList <String> observableList = FXCollections.observableArrayList(result);
-        friendsList.getItems().addAll(observableList);
+        dialog.getItems().addAll(observableList);
     }
 
     @FXML
@@ -104,8 +106,10 @@ public class MainPageController implements Initializable {
 
     @FXML
     public void sendMessage() throws SQLException {
-        user.writeMessage(user.getLogin(), receiverLabel.getText(), messageField.getText());
-        fillMessagesList();
+        if (!messageField.getText().equals("")) {
+            user.writeMessage(user.getLogin(), receiverLabel.getText(), messageField.getText());
+            fillMessagesList();
+        }
     }
 
     @FXML
@@ -114,7 +118,7 @@ public class MainPageController implements Initializable {
         stage.close();
     }
 
-    private void setLoginLabel() {
+    public void setLoginLabel() {
         loginLabel.setText(user.getLogin());
     }
 
@@ -124,35 +128,29 @@ public class MainPageController implements Initializable {
     }
 
     private String chooseUser() {
-        return friendsList.getSelectionModel().getSelectedItems().toString();
+        return friendsList.getSelectionModel().getSelectedItem();
     }
 
-    private void getUser() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-        LoginController controller = loader.getController();
-        this.user = controller.getUser();
-    }
-
-    private void fillFriendsList() throws SQLException {
+    public void fillFriendsList() throws SQLException {
         ArrayList <String> friends = database.getFriendsList(user.getLogin());
         ObservableList <String> observableList = FXCollections.observableArrayList(friends);
-        friendsList.getItems().addAll(observableList);
+        friendsList.setItems(observableList);
     }
 
-    private void fillSubscribersList() throws SQLException {
+    public void fillSubscribersList() throws SQLException {
         ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
         ObservableList <String> observableList = FXCollections.observableArrayList(subscribers);
-        subscribersList.getItems().addAll(observableList);
+        subscribersList.setItems(observableList);
     }
 
-    private void fillRequestsList() throws SQLException {
-        ArrayList <String> requests = database.getSubscribersList(user.getLogin());
+    public void fillRequestsList() throws SQLException {
+        ArrayList <String> requests = new ArrayList<>(database.getSubscribersList(user.getLogin()));
         ObservableList <String> observableList = FXCollections.observableArrayList(requests);
-        requestsList.getItems().addAll(observableList);
+        requestsList.setItems(observableList);
     }
 
-    private void fillMessagesList() throws SQLException {
-        ArrayList <String> messages = database.getMessages(user.getLogin(), receiverLabel.getText());
+    public void fillMessagesList() throws SQLException {
+        ArrayList <String> messages = new ArrayList<>(database.getMessages(user.getLogin(), receiverLabel.getText()));
         ObservableList <String> observableList = FXCollections.observableArrayList(messages);
         dialog.getItems().addAll(observableList);
     }
@@ -165,20 +163,8 @@ public class MainPageController implements Initializable {
         alert.showAndWait();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        getUser();
-        setLoginLabel();
-
-        try {
-            fillFriendsList();
-            fillSubscribersList();
-            fillRequestsList();
-        }
-
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
