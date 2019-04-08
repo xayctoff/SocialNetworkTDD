@@ -114,6 +114,14 @@ public class Database {
         return executeResult(query);
     }
 
+    public ArrayList <String> getRequestsList(String login) throws SQLException {
+        statement = instance.connection.createStatement();
+        int id = getUserId(login);
+        String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.first\n" +
+                "WHERE second = " + id + " AND status = 1";
+        return executeResult(query);
+    }
+
     public ArrayList <String> getMessages(String server, String receiver) throws SQLException {
         statement = instance.connection.createStatement();
         int serverId = getUserId(server);
@@ -157,9 +165,5 @@ public class Database {
         else {
             return list;
         }
-    }
-
-    public ArrayList <String> getRequests(String login) {
-        
     }
 }
