@@ -3,6 +3,9 @@ package scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Database;
@@ -72,35 +75,48 @@ public class MainPageController {
 
     @FXML
     public void acceptRequest() throws Exception {
-        String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
-        user.confirmFriendship(user.getLogin(), subscriber, true);
-        fillFriendsList();
-        fillSubscribersList();
+        String subscriber = subscribersList.getSelectionModel().getSelectedItem();
+
+        if (!subscriber.isEmpty()) {
+            user.confirmFriendship(user.getLogin(), subscriber, true);
+            fillFriendsList();
+            fillSubscribersList();
+        }
     }
 
     @FXML
     public void declineRequest() throws Exception {
-        String subscriber = subscribersList.getSelectionModel().getSelectedItems().toString();
-        user.confirmFriendship(user.getLogin(), subscriber, false);
-        fillFriendsList();
-        fillSubscribersList();
+        String subscriber = subscribersList.getSelectionModel().getSelectedItem();
+
+        if (!subscriber.isEmpty()) {
+            user.confirmFriendship(user.getLogin(), subscriber, false);
+            fillFriendsList();
+            fillSubscribersList();
+        }
     }
 
     @FXML
     public void searchPeople() throws SQLException {
-        ArrayList<String> result = new ArrayList<>(database.searchPeople(searchField.getText()));
-        ObservableList <String> observableList = FXCollections.observableArrayList(result);
-        dialog.getItems().addAll(observableList);
+        ArrayList<String> result = database.searchPeople(searchField.getText());
+
+        if (result != null) {
+            ObservableList<String> observableList = FXCollections.observableArrayList(result);
+            dialog.setItems(observableList);
+        }
     }
 
     @FXML
     public void addFriend() throws SQLException {
-        if (user.addFriend(user.getLogin(), searchResult.getSelectionModel().getSelectedItems().toString())) {
-            fillRequestsList();
-        }
+        String friend = searchResult.getSelectionModel().getSelectedItem();
+        if (!friend.isEmpty()) {
 
-        else {
-            showMessage();
+            if (user.addFriend(user.getLogin(), friend)) {
+                fillRequestsList();
+            }
+
+            else {
+                showMessage();
+            }
         }
     }
 
@@ -109,6 +125,7 @@ public class MainPageController {
         if (!messageField.getText().equals("")) {
             user.writeMessage(user.getLogin(), receiverLabel.getText(), messageField.getText());
             fillMessagesList();
+            messageField.clear();
         }
     }
 
@@ -116,6 +133,19 @@ public class MainPageController {
     public void signOut() {
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         stage.close();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            Parent root = loader.load();
+            Stage primaryStage = new Stage();
+            primaryStage.setTitle("Авторизация");
+            primaryStage.setScene(new Scene(root, 300, 200));
+            primaryStage.show();
+        }
+
+        catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void setLoginLabel() {
