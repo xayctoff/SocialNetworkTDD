@@ -132,6 +132,7 @@ public class MainPageController {
     }
 
     public void fillFriendsList() throws SQLException {
+        friendsList.getItems().clear();
         ArrayList <String> friends = database.getFriendsList(user.getLogin());
 
         if (friends != null) {
@@ -141,6 +142,7 @@ public class MainPageController {
     }
 
     public void fillSubscribersList() throws SQLException {
+        subscribersList.getItems().clear();
         ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
 
         if (subscribers != null) {
@@ -150,6 +152,7 @@ public class MainPageController {
     }
 
     public void fillRequestsList() throws SQLException {
+        requestsList.getItems().clear();
         ArrayList <String> requests = database.getRequestsList(user.getLogin());
 
         if (requests != null) {
@@ -159,6 +162,7 @@ public class MainPageController {
     }
 
     public void fillMessagesList() throws SQLException {
+        dialog.getItems().clear();
         ArrayList <String> messages = database.getMessages(user.getLogin(), receiverLabel.getText());
 
         if (messages != null) {
