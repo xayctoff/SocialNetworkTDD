@@ -127,8 +127,9 @@ public class Database {
         ArrayList <String> list = new ArrayList<>();
 
         while (result.next()) {
-            list.add(result.getString(1) + result.getString(2) +
-                    result.getString(3));
+            list.add(result.getString(1).replaceAll("\\s", "") +
+                    result.getString(2).replaceAll("\\s", "") +
+                    result.getString(3).replaceAll("\\s", ""));
         }
 
         if (list.isEmpty()) {
