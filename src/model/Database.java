@@ -159,4 +159,7 @@ public class Database {
         }
     }
 
+    public ArrayList <String> getRequests(String login) {
+        
+    }
 }
