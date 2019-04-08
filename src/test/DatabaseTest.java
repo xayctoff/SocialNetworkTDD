@@ -144,4 +144,11 @@ public class DatabaseTest {
         ArrayList <String> result = database.getRequestsList("andre");
         Assert.assertEquals(1, result.size());
     }
+
+    @Test
+    public void getRequestsNullTest() throws SQLException {
+        Database database = Database.getInstance();
+        ArrayList <String> result = database.getRequestsList("xayctoff");
+        Assert.assertNull(result);
+    }
 }
