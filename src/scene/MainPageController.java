@@ -159,9 +159,12 @@ public class MainPageController {
     }
 
     public void fillMessagesList() throws SQLException {
-        ArrayList <String> messages = new ArrayList<>(database.getMessages(user.getLogin(), receiverLabel.getText()));
-        ObservableList <String> observableList = FXCollections.observableArrayList(messages);
-        dialog.getItems().addAll(observableList);
+        ArrayList <String> messages = database.getMessages(user.getLogin(), receiverLabel.getText());
+
+        if (messages != null) {
+            ObservableList<String> observableList = FXCollections.observableArrayList(messages);
+            dialog.setItems(observableList);
+        }
     }
 
     private void showMessage() {
