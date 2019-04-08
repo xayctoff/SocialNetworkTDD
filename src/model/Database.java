@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Database {
 
@@ -102,7 +103,14 @@ public class Database {
         int id = getUserId(login);
         String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.second\n" +
                 "WHERE first = " + id + " AND status = 2";
-        return executeResult(query);
+
+        ArrayList<String> friends = new ArrayList<>(Objects.requireNonNull(executeResult(query)));
+
+        query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.first\n" +
+                "WHERE second = " + id + " AND status = 2";
+
+        friends.addAll(Objects.requireNonNull(executeResult(query)));
+        return friends;
 
     }
 
