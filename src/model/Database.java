@@ -104,14 +104,27 @@ public class Database {
         String query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.second\n" +
                 "WHERE first = " + id + " AND status = 2";
 
-        ArrayList<String> friends = new ArrayList<>(Objects.requireNonNull(executeResult(query)));
+        ArrayList <String> friends;
+        friends = executeResult(query);
 
         query = "SELECT login FROM friends INNER JOIN users ON users.user_id = friends.first\n" +
                 "WHERE second = " + id + " AND status = 2";
 
-        friends.addAll(Objects.requireNonNull(executeResult(query)));
-        return friends;
+        ArrayList <String> queryResult;
+        queryResult = executeResult(query);
 
+        if (queryResult != null) {
+
+            if (friends != null) {
+                friends.addAll(queryResult);
+            }
+
+            else {
+                friends = new ArrayList<>(queryResult);
+            }
+        }
+
+        return friends;
     }
 
     public ArrayList <String> getSubscribersList(String login) throws SQLException {
