@@ -135,9 +135,9 @@ public class Database {
         ArrayList <String> list = new ArrayList<>();
 
         while (result.next()) {
-            list.add(result.getString(1).replaceAll("\\s", "") +
-                    result.getString(2).replaceAll("\\s", "") +
-                    result.getString(3).replaceAll("\\s", ""));
+            list.add(result.getString(1).trim() + " " +
+                    result.getString(2).trim() + " " +
+                    result.getString(3).trim());
         }
 
         if (list.isEmpty()) {
@@ -155,7 +155,7 @@ public class Database {
         ArrayList <String> list = new ArrayList<>();
 
         while (result.next()) {
-            list.add(result.getString(1).replaceAll("\\s", ""));
+            list.add(result.getString(1).trim());
         }
 
         if (list.isEmpty()) {
