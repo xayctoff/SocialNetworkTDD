@@ -133,20 +133,29 @@ public class MainPageController {
 
     public void fillFriendsList() throws SQLException {
         ArrayList <String> friends = database.getFriendsList(user.getLogin());
-        ObservableList <String> observableList = FXCollections.observableArrayList(friends);
-        friendsList.setItems(observableList);
+
+        if (friends != null) {
+            ObservableList<String> observableList = FXCollections.observableArrayList(friends);
+            friendsList.setItems(observableList);
+        }
     }
 
     public void fillSubscribersList() throws SQLException {
         ArrayList <String> subscribers = database.getSubscribersList(user.getLogin());
-        ObservableList <String> observableList = FXCollections.observableArrayList(subscribers);
-        subscribersList.setItems(observableList);
+
+        if (subscribers != null) {
+            ObservableList<String> observableList = FXCollections.observableArrayList(subscribers);
+            subscribersList.setItems(observableList);
+        }
     }
 
     public void fillRequestsList() throws SQLException {
-        ArrayList <String> requests = new ArrayList<>(database.getSubscribersList(user.getLogin()));
-        ObservableList <String> observableList = FXCollections.observableArrayList(requests);
-        requestsList.setItems(observableList);
+        ArrayList <String> requests = database.getRequestsList(user.getLogin());
+
+        if (requests != null) {
+            ObservableList<String> observableList = FXCollections.observableArrayList(requests);
+            requestsList.setItems(observableList);
+        }
     }
 
     public void fillMessagesList() throws SQLException {
