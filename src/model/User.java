@@ -1,10 +1,8 @@
 package model;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class User {
@@ -47,14 +45,16 @@ public class User {
         if (decision) {
             Database.getInstance().update("UPDATE friends SET status = 2 WHERE first = (SELECT user_id FROM " +
                     "users WHERE login = '" + first + "') AND second = (SELECT user_id FROM users WHERE login = '" +
-                    second + "')");
+                    second + "') OR first = (SELECT user_id FROM users WHERE login = '" + second + "') " +
+                    "AND second = (SELECT user_id FROM users WHERE login = '" + first + "')");
             return true;
         }
 
         else {
             Database.getInstance().update("UPDATE friends SET status = 0 WHERE first = (SELECT user_id FROM " +
                     "users WHERE login = '" + first + "') AND second = (SELECT user_id FROM users WHERE login = '" +
-                    second + "')");
+                    second + "') OR first = (SELECT user_id FROM users WHERE login = '" + second + "') " +
+                    "AND second = (SELECT user_id FROM users WHERE login = '" + first + "')");
             return false;
         }
     }
